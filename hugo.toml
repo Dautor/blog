@@ -1,0 +1,51 @@
+baseURL = "https://blog.dautor.xyz"
+languageCode = "en-us"
+theme = "blowfish"
+title = "Dautor's blog"
+
+[author]
+name = "Dautor"
+image = "img/profile.png"
+headline = "A human (technically)"
+links = [
+	{ github = "https://github.com/Dautor" }
+]
+
+[params]
+	colorScheme = "noir"
+
+[params.homepage]
+	showRecent = true
+	showRecentItems = 12
+	showMoreLink = true
+	showMoreLinkDest = "posts"
+	cardView = true
+	cardViewScreenWidth = false
+
+[params.footer]
+	showThemeAttribution = false
+	showCopyright = false
+
+[params.article]
+	showAuthor = true
+	showReadingTime = false
+	showWordCount = false
+
+[menu]
+	[[menu.main]]
+		identifier = "posts"
+		name = "Posts"
+		url = "/posts/"
+		weight = 1
+
+	[[menu.main]]
+		identifier = "categories"
+		name = "Categories"
+		url = "/categories/"
+		weight = 2
+
+	[[menu.main]]
+		identifier = "tags"
+		name = "Tags"
+		url = "/tags/"
+		weight = 3
