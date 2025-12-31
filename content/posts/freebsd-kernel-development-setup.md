@@ -122,7 +122,7 @@ echo 'vfs.root.mountfrom="p9fs:root"' >> vm0/boot/loader.conf
 Load and run the VM:
 ```sh
 bhyveload -m 1G -h vm0 vm0
-bhyve -m 1G -A -G localhost:1234 -l com1,stdio -s 0,hostbridge -s 3,virtio-9p,root=vm0 -s 31,lpc vm0
+bhyve -H -m 1G -A -G localhost:1234 -l com1,stdio -s 0,hostbridge -s 3,virtio-9p,root=vm0 -s 31,lpc vm0
 # log in as root
 # if you want to be automatically logged in as root, run this:
 sed -i. 's|:np:nc:sp#0:|:al=root:np:nc:sp#0:|g' /etc/gettytab
@@ -146,7 +146,7 @@ mkdir obj
 
 ```sh
 cd src
-MAKEOBJDIRPREFIX=$(pwd)/../obj make -j $(sysctl -n hw.ncpu) buildkernel
+MAKEOBJDIRPREFIX=$(pwd)/../obj make -j $(sysctl -n hw.ncpu) -ss buildkernel
 # this could take a while, depending on your hardware
 ```
 
@@ -154,7 +154,7 @@ MAKEOBJDIRPREFIX=$(pwd)/../obj make -j $(sysctl -n hw.ncpu) buildkernel
 
 ```sh
 # from the src directory
-MAKEOBJDIRPREFIX=$(pwd)/../obj make -j $(sysctl -n hw.ncpu) DESTDIR=../vm0 installkernel
+MAKEOBJDIRPREFIX=$(pwd)/../obj make -j $(sysctl -n hw.ncpu) -ss DESTDIR=../vm0 installkernel
 ```
 
 ### Testing
@@ -162,7 +162,7 @@ MAKEOBJDIRPREFIX=$(pwd)/../obj make -j $(sysctl -n hw.ncpu) DESTDIR=../vm0 insta
 Start the VM and check which kernel it is running:
 ```sh
 # outside the src directory - where src, vm0 and obj directories are:
-bhyveload -m 1G -h vm0 vm0 && bhyve -m 1G -A -G localhost:1234 -l com1,stdio -s 0,hostbridge -s 3,virtio-9p,root=vm0 -s 31,lpc vm0
+bhyveload -m 1G -h vm0 vm0 && bhyve -H -m 1G -A -G localhost:1234 -l com1,stdio -s 0,hostbridge -s 3,virtio-9p,root=vm0 -s 31,lpc vm0
 # inside the VM once it's up:
 uname -a
 ```
