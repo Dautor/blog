@@ -70,7 +70,7 @@ sh /usr/share/examples/bhyve/vmrun.sh -P -v -m 1G -d FreeBSD-16.0-CURRENT-amd64-
 ```
 
 You will see the bootloader prompt on your terminal and can proceed with booting.
-Once see it's waiting for a DHCP server and default route interface you can press `^C` to skip waiting.
+Once you see it's waiting for a DHCP server and default route interface you can press `^C` to skip waiting.
 Log in as _root_ and run the following commands to pack the whole filesystem into a single archive:
 ```sh
 # inside the VM
