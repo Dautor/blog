@@ -5,3 +5,5 @@ chmod -R a+rX public resources
 cp static/img/favicon.ico public/favicon.ico
 cp static/img/favicon.ico public/favicon-32x32.ico
 cp static/img/favicon.ico public/favicon-16x16.ico
+sudo rm -r /zroot/www/blog
+sudo cp -r public /zroot/www/blog

@@ -11,6 +11,11 @@ links = [
 	{ github = "https://github.com/Dautor" }
 ]
 
+[markup]
+	[markup.goldmark]
+		[markup.goldmark.renderer]
+			unsafe = true
+
 [params]
 	colorScheme = "noir"
 
