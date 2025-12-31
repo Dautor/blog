@@ -54,3 +54,7 @@ links = [
 		name = "Tags"
 		url = "/tags/"
 		weight = 3
+
+[caches]
+	[caches.images]
+		dir = ':cacheDir/images'
