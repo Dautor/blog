@@ -3,6 +3,7 @@ title:                  "mbuf tracing part 1"
 date:                   2025-12-30T22:00:00+01:00
 type:                   posts
 draft:                  false
+tags:                   ["FreeBSD", "mbuf_trace"]
 showTableOfContents:    true
 ---
 ## Goal

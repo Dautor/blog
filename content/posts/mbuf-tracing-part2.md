@@ -3,6 +3,7 @@ title:                  "mbuf tracing part 2"
 date:                   2025-12-31T14:00:00+01:00
 type:                   posts
 draft:                  false
+tags:                   ["FreeBSD", "mbuf_trace"]
 showTableOfContents:    true
 ---
 ## Adding a build time option

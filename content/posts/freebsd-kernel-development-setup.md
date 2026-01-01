@@ -3,6 +3,7 @@ title:                  "FreeBSD kernel development setup"
 date:                   2025-12-14T20:00:00+01:00
 type:                   posts
 draft:                  false
+tags:                   ["FreeBSD"]
 showTableOfContents:    true
 ---
 ## Demonstration

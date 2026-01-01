@@ -3,6 +3,7 @@ title:                  "Blog hosting"
 date:                   2025-12-31T12:00:00+01:00
 type:                   posts
 draft:                  false
+tags:                   ["Hosting", "meta"]
 showTableOfContents:    true
 ---
 ## Where?
