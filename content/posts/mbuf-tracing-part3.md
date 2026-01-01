@@ -46,6 +46,55 @@ This should allow us to add toggles for tracing on interfaces / firewall rules.
 
 `tcpdump` on interface `mbuf_trace`.
 
+## Wireshark dissector code
+
+Paste the following into `~/.config/wireshark/plugins/mbuf_trace.lua`:
+```Lua
+local mbuf_trace_proto = Proto("mbuf_trace", "mbuf_trace Link-Layer")
+
+local f_data = ProtoField.string("mbuf_trace.data", "data")
+mbuf_trace_proto.fields = { f_data }
+
+function mbuf_trace_proto.dissector(tvbuf, pinfo, tree)
+	pinfo.cols.protocol = "mbuf_trace"
+
+	local pktlen = tvbuf:len()
+	if pktlen < 2 then return end
+
+	local offset = 0
+	local count = tvbuf(offset,2):uint()
+	offset = offset + 2
+
+	local eth_dissector = Dissector.get("eth_withoutfcs") or Dissector.get("eth")
+
+	for i = 1, count do
+		if offset + 2 > pktlen then break end
+		local rlen = tvbuf(offset, 2):uint()
+		offset = offset + 2
+		if offset + 2 > pktlen then break end
+		local rtype = tvbuf(offset, 2):uint()
+		offset = offset + 2
+		if offset + rlen > pktlen then break end
+
+		local data = tvbuf(offset, rlen);
+		if rtype == 1 then -- packet data
+			local rec_tree = tree:add(mbuf_trace_proto, data, "mbuf content")
+			eth_dissector:call(data:tvb(), pinfo, rec_tree)
+		elseif rtype == 2 or type == 3 then -- string
+			tree:add(f_data, data:string())
+		end
+		offset = offset + rlen
+	end
+
+	if offset < pktlen then
+	end
+end
+
+DissectorTable.get("wtap_encap"):add(wtap.USER0, mbuf_trace_proto)
+```
+
+[Here is an example PCAP file](/pcap/mbuf-tracing-part3.pcap) you can test it on.
+
 ## TODO
 
 Would it be cool if `ddb` was able to dump traces?
@@ -58,4 +107,3 @@ I want to add toggles to:
 - sockets (enabled at socket creation / after creation)
 - processes (if start-start is enabled on a process, all mbufs that originate from it should have it enabled
 - other ideas? [contact me](mailto:blog@dautor.xyz)
-
