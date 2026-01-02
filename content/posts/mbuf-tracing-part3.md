@@ -42,6 +42,13 @@ This should allow us to add toggles for tracing on interfaces / firewall rules.
 - `mtrace_` captures `__FILE__:__LINE__`.
 - `mtrace_enter`, `mtrace_leave` and `mtrace_func` capture `__FILE__:__LINE__: X__func__`, where `X` is +, -, or nothing, respectively.
 
+## Enabling tracing
+
+Currently, there are 3 new sysctls when `mbuf_trace` is enabled:
+- `kern.mbuf_trace.enable` - enables / disables all tracing.
+- `kern.mbuf_trace.source_position` - prepends `__FILE__:__LINE__: ` to every trace string.
+- `kern.mbuf_trace.start_anywhere` - disables checking if trace is already started. This makes it as if all mbufs have tracing started.
+
 ## Capturing mbuf trace
 
 `tcpdump` on interface `mbuf_trace`.
