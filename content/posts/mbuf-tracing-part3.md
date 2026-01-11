@@ -59,7 +59,7 @@ Paste the following into `~/.config/wireshark/plugins/mbuf_trace.lua`:
 ```Lua
 local mbuf_trace_proto = Proto("mbuf_trace", "mbuf_trace Link-Layer")
 
-local f_data = ProtoField.string("mbuf_trace.data", "data")
+local f_data = ProtoField.string("mbuf_trace.data", "trace")
 mbuf_trace_proto.fields = { f_data }
 
 function mbuf_trace_proto.dissector(tvbuf, pinfo, tree)
@@ -84,10 +84,10 @@ function mbuf_trace_proto.dissector(tvbuf, pinfo, tree)
 		if offset + rlen > pktlen then break end
 
 		local data = tvbuf(offset, rlen);
-		if rtype == 1 then -- packet data
-			local rec_tree = tree:add(mbuf_trace_proto, data, "mbuf content")
+		if rtype == 0 then -- ethernet
+			local rec_tree = tree:add(mbuf_trace_proto, data, "data")
 			eth_dissector:call(data:tvb(), pinfo, rec_tree)
-		elseif rtype == 2 or type == 3 then -- string
+		elseif rtype == 1 then -- string
 			tree:add(f_data, data:string())
 		end
 		offset = offset + rlen
